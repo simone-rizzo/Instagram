@@ -14,7 +14,7 @@ class Profilo extends StatefulWidget {
 }
 
 class _ProfiloState extends State<Profilo> {
-  bool segui = false;
+ 
  var testo_storie = ["MyAlbum","Pictures","Summer","Winter","Spring","Milan","Rome","Japan","House","Pisa","Hot","Memories"];
  Random myrand = new Random();
 
@@ -138,54 +138,7 @@ class _ProfiloState extends State<Profilo> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            segui?GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  segui=!segui;
-                                });
-                              },
-                              child: Container(
-                                width: 100,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.grey,
-                                      width: 1.5
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-
-                                ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [Text("Segui già",
-                                      style: TextStyle(color: Colors.black87, fontSize: 15, fontWeight: FontWeight.bold),),
-                                      Icon(Icons.keyboard_arrow_down)
-                                    ]),
-                                ),
-                              ),
-                            ):GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  segui=!segui;
-                                });
-                              },
-                              child: Container(
-                                width: 100,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                  color: Colors.blue
-                                ),
-                                child: Center(
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [Text("Segui",
-                                        style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),)
-                                      ]),
-                                ),
-                              ),
-                            ),
+                            seguiButton(),
                             Container(
                               width: 100,
                               height: 40,
@@ -383,3 +336,65 @@ Widget storie_evidenza(String nome) {
       )
   );
 }
+
+class seguiButton extends StatefulWidget {
+  @override
+  _seguiButtonState createState() => _seguiButtonState();
+}
+
+class _seguiButtonState extends State<seguiButton> {
+  bool segui = false;
+  @override
+  Widget build(BuildContext context) {
+    return
+      segui?GestureDetector(
+        onTap: (){
+          setState(() {
+            segui=!segui;
+          });
+        },
+        child: Container(
+          width: 100,
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: Colors.grey,
+                width: 1.5
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+
+          ),
+          child: Center(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text("Segui già",
+                  style: TextStyle(color: Colors.black87, fontSize: 15, fontWeight: FontWeight.bold),),
+                  Icon(Icons.keyboard_arrow_down)
+                ]),
+          ),
+        ),
+      ):GestureDetector(
+        onTap: (){
+          setState(() {
+            segui=!segui;
+          });
+        },
+        child: Container(
+          width: 100,
+          height: 40,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              color: Colors.blue
+          ),
+          child: Center(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text("Segui",
+                  style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),)
+                ]),
+          ),
+        ),
+      );
+  }
+}
+
