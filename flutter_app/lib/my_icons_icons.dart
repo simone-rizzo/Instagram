@@ -52,6 +52,10 @@ class MyIcons {
   static const IconData more_vert = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData home = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData add = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData grid_on = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData account_box = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData instagram_reels = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData iconfinder_igtv_4070141 = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search = IconData(0xf002, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData youtube_play = IconData(0xf16a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData shopping_bag = IconData(0xf290, fontFamily: _kFontFam, fontPackage: _kFontPkg);

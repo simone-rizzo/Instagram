@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/my_icons_icons.dart';
+import 'package:flutter_app/profile.dart';
+import 'ig_profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,6 +49,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int l = profili.length;
+  List<bool> cuori = List.filled(profili.length,false);
 
   void _incrementCounter() {
     setState(() {
@@ -58,7 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-
+void settaliked(int i)
+{
+  setState(() {
+cuori[i]=!cuori[i];
+  });
+}
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -104,11 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      post("mario","https://simone-rizzo.github.io/fairwear_images/16rfirenze0.jpg","https://simone-rizzo.github.io/fairwear_images/16rfirenze1.jpg"),
-                      post("filippo","https://simone-rizzo.github.io/fairwear_images/16rfirenze1.jpg","https://simone-rizzo.github.io/fairwear_images/16rfirenze1.jpg"),
-                      post("giovanni","https://simone-rizzo.github.io/fairwear_images/16rfirenze2.jpg","https://simone-rizzo.github.io/fairwear_images/16rfirenze1.jpg"),
-                      post("luigi","https://simone-rizzo.github.io/fairwear_images/16rfirenze3.jpg","https://simone-rizzo.github.io/fairwear_images/16rfirenze1.jpg"),
-                      post("gianfrancesco","https://simone-rizzo.github.io/fairwear_images/16rfirenze4.jpg","https://simone-rizzo.github.io/fairwear_images/16rfirenze1.jpg")
+                      for (int i=0;i<profili.length;i++)
+                        post(i, profili[i].username, profili[i].get_foto(0),profili[i].get_foto(0))
                     ],
                   ),
                 ),
@@ -129,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 30,),
                   ),
                   IconButton(
-                    icon: Icon(MyIcons.youtube_play, color: Colors.black87,
+                    icon: Icon(MyIcons.instagram_reels, color: Colors.black87,
                       size: 30,),
                   ),
                   IconButton(
@@ -150,7 +156,134 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget post(String nome, String url, String avatar_url) {
+class post extends StatefulWidget {
+  int i;
+  String nome;
+  String url;
+  String avatar_url;
+  post(this.i, this.nome, this.url, this.avatar_url);
+
+  @override
+  _postState createState() => _postState();
+}
+
+class _postState extends State<post> {
+  bool cuore = false;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Profilo(widget.i)),
+                  );
+                },
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(widget.avatar_url),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(widget.nome, style: TextStyle(fontWeight: FontWeight.bold),),
+                  ],
+                ),
+              ),
+              IconButton(icon: Icon(MyIcons.more_vert),)
+            ],
+          ),
+          Image.network(widget.url),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: ()
+                    {
+                        setState(() {
+                          cuore=!cuore;
+                        });
+                    },
+                    icon: Icon(!cuore?MyIcons.heart_empty:MyIcons.heart, color: Colors.black87,),),
+                  IconButton(
+                    icon: Icon(MyIcons.comment, color: Colors.black87,),),
+                  IconButton(icon: Icon(MyIcons.send, color: Colors.black87,),)
+                ],
+              ),
+              IconButton(icon: Icon(MyIcons.saved, color: Colors.black87,),)
+            ],
+          ),
+          Row(
+            children: [
+              Text("Piace a "),
+              Text("fit.prateek", style: TextStyle(fontWeight: FontWeight.bold),),
+              Text(" e "),
+              Text(
+                "altre persone", style: TextStyle(fontWeight: FontWeight.bold),)
+            ],
+          ),
+          SizedBox(height: 5,),
+          Row(
+            children: [
+              Text("marietto", style: TextStyle(fontWeight: FontWeight.bold),),
+              Text(" questa sì che è una bellissima foto")
+            ],
+          ),
+          SizedBox(height: 5,),
+          Row(
+            children: [
+              Text("Respect"),
+              Text("...altro", style: TextStyle(color: Colors.grey)),
+            ],
+          ),
+          SizedBox(height: 5,),
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 15,
+                backgroundImage: NetworkImage(
+                    "https://yt3.ggpht.com/a-/AOh14GjN4zln0_csH_6MQPDPw9zymWh-fIBWjE0u6w=s68-c-k-c0x00ffffff-no-rj-mo"),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: TextField(
+                  style: TextStyle(color: Colors.black87),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: 'Aggiungi un commento...'
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
+          Row(
+            children: [
+              Text("4 minuti fa", style: TextStyle(fontSize: 10),),
+              Text(" - Visualizza traduzione",
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),)
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
+/*Widget post(BuildContext context,List<bool> cuori,int i,String nome, String url, String avatar_url) {
   return Container(
     padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
     child: Column(
@@ -158,16 +291,24 @@ Widget post(String nome, String url, String avatar_url) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(avatar_url),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(nome, style: TextStyle(fontWeight: FontWeight.bold),),
-              ],
+            GestureDetector(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profilo(i)),
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(avatar_url),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(nome, style: TextStyle(fontWeight: FontWeight.bold),),
+                ],
+              ),
             ),
             IconButton(icon: Icon(MyIcons.more_vert),)
           ],
@@ -179,7 +320,11 @@ Widget post(String nome, String url, String avatar_url) {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(MyIcons.heart_empty, color: Colors.black87,),),
+                  onPressed: ()
+                  {
+
+                  },
+                  icon: Icon(cuori[i]?MyIcons.heart_empty:MyIcons.heart, color: Colors.black87,),),
                 IconButton(
                   icon: Icon(MyIcons.comment, color: Colors.black87,),),
                 IconButton(icon: Icon(MyIcons.send, color: Colors.black87,),)
@@ -226,6 +371,7 @@ Widget post(String nome, String url, String avatar_url) {
               child: TextField(
                 style: TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
+                    border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey),
                     hintText: 'Aggiungi un commento...'
                 ),
@@ -244,5 +390,5 @@ Widget post(String nome, String url, String avatar_url) {
       ],
     ),
   );
-}
+}*/
 
